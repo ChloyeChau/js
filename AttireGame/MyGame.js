@@ -14,7 +14,7 @@ var config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    backgroundColor: '#000000',
+    backgroundColor: '#94EAFF',
     pixelArt: true,
     //// Add all scenes below in the array
     scene: [preloadScene, level1_Living, level2_Kitchen, level3_Bedroom]
