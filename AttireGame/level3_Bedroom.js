@@ -19,11 +19,31 @@ class level3_Bedroom extends Phaser.Scene {
     frameHeight: 64,
     });
 
+    this.load.spritesheet("shoes", "assets/Shoes.png", {
+      frameWidth: 62,
+      frameHeight: 62,
+    });
+
 } // end of preload //
 
-    create (){
-
-    // console.log("animationScene")
+create (){
+  // console.log("animationScene")
+  
+      // Call to update inventory
+      // this.time.addEvent({
+      //   delay: 500,
+      //   callback: updateInventory,
+      //   callbackScope: this,
+      //   loop: false,
+      // });
+  
+      this.anims.create({
+        key: "shoesMove",
+        frames: this.anims.generateFrameNumbers("shoes", {start:0,end:1}),
+        frameRate: 6,
+        repeat: -1,
+  
+      })
 
 //Step 3, create the map from main
 let map = this.make.tilemap ({key: "map3"});
@@ -77,7 +97,19 @@ this.anims.create({
     repeat: -1,
   });
 
+   // object layer //
   var start = map.findObject("Object Layer 3",obj => obj.name === "Start");
+
+  // shoes object
+  let shoes1 = map.findObject("Object Layer 3", (obj) => obj.name === "shoes1");
+  let shoes2 = map.findObject("Object Layer 3", (obj) => obj.name === "shoes2");
+  let shoes3 = map.findObject("Object Layer 3", (obj) => obj.name === "shoes3");
+  
+  this.enemy1 = this.physics.add.sprite(shoes1.x, shoes1.y, "shoes").play("shoesMove").setScale(0.7)
+  this.enemy2 = this.physics.add.sprite(shoes2.x, shoes2.y, "shoes").play("shoesMove").setScale(0.7)
+  this.enemy3 = this.physics.add.sprite(shoes3.x, shoes3.y, "shoes").play("shoesMove").setScale(0.7)
+
+  // this player sprite
   this.player = this.physics.add.sprite(start.x, start.y, "gen3");
   window.player = this.player;
   

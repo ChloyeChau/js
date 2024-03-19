@@ -240,6 +240,42 @@
                  "width":0,
                  "x":34,
                  "y":442
+                }, 
+                {
+                 "height":0,
+                 "id":2,
+                 "name":"shoes1",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":588.999,
+                 "y":202.501
+                }, 
+                {
+                 "height":0,
+                 "id":4,
+                 "name":"shoes2",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":93.5409,
+                 "y":749.355
+                }, 
+                {
+                 "height":0,
+                 "id":5,
+                 "name":"shoes3",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":753.467,
+                 "y":727.769
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -248,7 +284,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":2,
+ "nextobjectid":6,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

@@ -100,7 +100,7 @@ this.anims.create({
   // object layer //
   var start = map.findObject("Object Layer 2",obj => obj.name === "Start");
 
-// shirt object
+// pants object
 let pants1 = map.findObject("Object Layer 2", (obj) => obj.name === "pants1");
 let pants2 = map.findObject("Object Layer 2", (obj) => obj.name === "pants2");
 let pants3 = map.findObject("Object Layer 2", (obj) => obj.name === "pants3");

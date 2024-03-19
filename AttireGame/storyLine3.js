@@ -1,24 +1,24 @@
-class preloadScene extends Phaser.Scene {
+class storyLine3 extends Phaser.Scene {
     constructor() {
-        super({ key: 'preloadScene' });
+        super({ key: 'storyLine3' });
     }
 
     preload() {
-        this.load.image('story1', 'assets/Storyline1.png')
+        this.load.image('story3', 'assets/Storyline3.png')
     
     }
     
     create () {
-        this.story = this.add.image(0, 0, 'story1').setOrigin(0, 0).setScale(1);
+        this.story = this.add.image(0, 0, 'story3').setOrigin(0, 0).setScale(1);
        
-        console.log("story1");
+        console.log("story3");
       //   let map = this.make.tilemap({ key: "world" });
     
         var spaceDown = this.input.keyboard.addKey('SPACE');
         
         spaceDown.on('down', function(){
-        console.log("Spacebar pressed, go to next storyLine");
-        this.scene.start("storyLine2");
+        console.log("Spacebar pressed, go to instructions");
+        this.scene.start("instructions");
         },this);
     
     }
