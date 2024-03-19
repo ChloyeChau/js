@@ -18,8 +18,8 @@ class level1_Living extends Phaser.Scene {
     });
 
     this.load.spritesheet("shirt", "assets/Shirt.png", {
-      frameWidth: 142,
-      frameHeight: 84,
+      frameWidth: 62,
+      frameHeight: 62,
     });
 
   } // end of preload //
@@ -35,6 +35,13 @@ class level1_Living extends Phaser.Scene {
     //   loop: false,
     // });
 
+    this.anims.create({
+      key: "shirtMove",
+      frames: this.anims.generateFrameNumbers("shirt", {start:0,end:1}),
+      frameRate: 6,
+      repeat: -1,
+
+    })
     //Step 3, create the map from main
     let map = this.make.tilemap({ key: "map1" });
 
@@ -92,7 +99,9 @@ class level1_Living extends Phaser.Scene {
     let shirt2 = map.findObject("Object Layer 1", (obj) => obj.name === "shirt2");
     let shirt3 = map.findObject("Object Layer 1", (obj) => obj.name === "shirt3");
 
-    this.enemy1 = this.physics.add.sprite(shirt1.x, shirt1.y, "shirt").play("shirtAnim")
+    this.enemy1 = this.physics.add.sprite(shirt1.x, shirt1.y, "shirt").play("shirtMove").setScale(0.7)
+    this.enemy2 = this.physics.add.sprite(shirt2.x, shirt2.y, "shirt").play("shirtMove").setScale(0.7)
+    this.enemy3 = this.physics.add.sprite(shirt3.x, shirt3.y, "shirt").play("shirtMove").setScale(0.7)
 
     // this.enemy1 = this.physics.add
     //   .sprite(shirt1.x, shirt1.y, "shirt")
@@ -101,6 +110,11 @@ class level1_Living extends Phaser.Scene {
     // this player sprite
     this.player = this.physics.add.sprite(start.x, start.y, "gen1");
     window.player = this.player;
+
+     // player stays within map
+  this.physics.world.bounds.width = this.floorLayer.width
+  this.physics.world.bounds.height = this.floorLayer.height
+  this.player.setCollideWorldBounds(true);
 
     // create the arrow keys
     this.cursors = this.input.keyboard.createCursorKeys();
