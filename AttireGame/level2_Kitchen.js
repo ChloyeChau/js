@@ -19,11 +19,31 @@ class level2_Kitchen extends Phaser.Scene {
     frameHeight: 64,
     });
 
+    this.load.spritesheet("pants", "assets/Pants.png", {
+      frameWidth: 62,
+      frameHeight: 62,
+    });
+
 } // end of preload //
 
     create (){
+// console.log("animationScene")
 
-    // console.log("animationScene")
+    // Call to update inventory
+    // this.time.addEvent({
+    //   delay: 500,
+    //   callback: updateInventory,
+    //   callbackScope: this,
+    //   loop: false,
+    // });
+
+    this.anims.create({
+      key: "pantsMove",
+      frames: this.anims.generateFrameNumbers("pants", {start:0,end:1}),
+      frameRate: 6,
+      repeat: -1,
+
+    })
 
 //Step 3, create the map from main
 let map = this.make.tilemap ({key: "map2"});
@@ -77,7 +97,19 @@ this.anims.create({
     repeat: -1,
   });
 
+  // object layer //
   var start = map.findObject("Object Layer 2",obj => obj.name === "Start");
+
+// shirt object
+let pants1 = map.findObject("Object Layer 2", (obj) => obj.name === "pants1");
+let pants2 = map.findObject("Object Layer 2", (obj) => obj.name === "pants2");
+let pants3 = map.findObject("Object Layer 2", (obj) => obj.name === "pants3");
+
+this.enemy1 = this.physics.add.sprite(pants1.x, pants1.y, "pants").play("pantsMove").setScale(0.7)
+this.enemy2 = this.physics.add.sprite(pants2.x, pants2.y, "pants").play("pantsMove").setScale(0.7)
+this.enemy3 = this.physics.add.sprite(pants3.x, pants3.y, "pants").play("pantsMove").setScale(0.7)
+
+// this player sprite
   this.player = this.physics.add.sprite(start.x, start.y, "gen2");
   window.player = this.player;
   
