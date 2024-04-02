@@ -1,6 +1,8 @@
 class level1_Living extends Phaser.Scene {
   constructor() {
     super({ key: "level1_Living" });
+    this.shirtCount = 0;
+    this.XshirtCount = 0;
   }
 
   preload() {
@@ -22,26 +24,53 @@ class level1_Living extends Phaser.Scene {
       frameHeight: 62,
     });
 
+    this.load.spritesheet("blueS", "assets/blueS.png", {
+      frameWidth: 62,
+      frameHeight: 62,
+    });
+
+    this.load.spritesheet("pinkS", "assets/pinkS.png", {
+      frameWidth: 62,
+      frameHeight: 62,
+    });
+
+    this.load.spritesheet("stripeS", "assets/stripeS.png", {
+      frameWidth: 62,
+      frameHeight: 62,
+    });
+
   } // end of preload //
 
   create() {
-    // console.log("animationScene")
-
-    // Call to update inventory
-    // this.time.addEvent({
-    //   delay: 500,
-    //   callback: updateInventory,
-    //   callbackScope: this,
-    //   loop: false,
-    // });
 
     this.anims.create({
       key: "shirtMove",
       frames: this.anims.generateFrameNumbers("shirt", {start:0,end:1}),
       frameRate: 6,
       repeat: -1,
-
     })
+
+    this.anims.create({
+      key: "blueSMove",
+      frames: this.anims.generateFrameNumbers("blueS", {start:0,end:1}),
+      frameRate: 6,
+      repeat: -1,
+    })
+
+    this.anims.create({
+      key: "pinkSMove",
+      frames: this.anims.generateFrameNumbers("pinkS", {start:0,end:1}),
+      frameRate: 6,
+      repeat: -1,
+    })
+
+    this.anims.create({
+      key: "stripeSMove",
+      frames: this.anims.generateFrameNumbers("stripeS", {start:0,end:1}),
+      frameRate: 6,
+      repeat: -1,
+    })
+
     //Step 3, create the map from main
     let map = this.make.tilemap({ key: "map1" });
 
@@ -62,6 +91,11 @@ class level1_Living extends Phaser.Scene {
     this.wallBoarderLayer = map.createLayer("Wall Boarder", tilesArray, 0, 0);
     this.furnitureLayer = map.createLayer("Furniture", tilesArray, 0, 0);
     this.furniture2Layer = map.createLayer("Furniture 2", tilesArray, 0, 0);
+
+// player stays within map
+// this.physics.world.bounds.width = this.floorLayer.width
+// this.physics.world.bounds.height = this.floorLayer.height
+// this.player.setCollideWorldBounds(true);
 
     this.anims.create({
       key: "gen-up",
@@ -99,22 +133,22 @@ class level1_Living extends Phaser.Scene {
     let shirt2 = map.findObject("Object Layer 1", (obj) => obj.name === "shirt2");
     let shirt3 = map.findObject("Object Layer 1", (obj) => obj.name === "shirt3");
 
-    this.enemy1 = this.physics.add.sprite(shirt1.x, shirt1.y, "shirt").play("shirtMove").setScale(0.7)
-    this.enemy2 = this.physics.add.sprite(shirt2.x, shirt2.y, "shirt").play("shirtMove").setScale(0.7)
-    this.enemy3 = this.physics.add.sprite(shirt3.x, shirt3.y, "shirt").play("shirtMove").setScale(0.7)
+    this.shirt1 = this.physics.add.sprite(shirt1.x, shirt1.y, "shirt").play("shirtMove").setScale(0.7)
+    this.shirt2 = this.physics.add.sprite(shirt2.x, shirt2.y, "shirt").play("shirtMove").setScale(0.7)
+    this.shirt3 = this.physics.add.sprite(shirt3.x, shirt3.y, "shirt").play("shirtMove").setScale(0.7)
 
-    // this.enemy1 = this.physics.add
-    //   .sprite(shirt1.x, shirt1.y, "shirt")
-    //   .play("shirtAnim");
+     // kelefe shirts object
+     let blueS = map.findObject("Object Layer 1", (obj) => obj.name === "blueS");
+     let pinkS = map.findObject("Object Layer 1", (obj) => obj.name === "pinkS");
+     let stripeS = map.findObject("Object Layer 1", (obj) => obj.name === "stripeS");
+ 
+     this.blueS = this.physics.add.sprite(blueS.x, blueS.y, "shirt").play("blueSMove").setScale(0.7)
+     this.pinkS = this.physics.add.sprite(pinkS.x, pinkS.y, "shirt").play("pinkSMove").setScale(0.7)
+     this.stripeS = this.physics.add.sprite(stripeS.x, stripeS.y, "shirt").play("stripeSMove").setScale(0.7)
 
     // this player sprite
     this.player = this.physics.add.sprite(start.x, start.y, "gen1");
     window.player = this.player;
-
-     // player stays within map
-  this.physics.world.bounds.width = this.floorLayer.width
-  this.physics.world.bounds.height = this.floorLayer.height
-  this.player.setCollideWorldBounds(true);
 
     // create the arrow keys
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -152,9 +186,18 @@ class level1_Living extends Phaser.Scene {
 
     // make the camera follow the player
     this.cameras.main.startFollow(this.player);
-  } // end of create //
 
-  update() {
+    //Collectables (Shirt)
+    this.physics.add.overlap(this.player, this.shirt1, this.collectShirt, null, this);
+    this.physics.add.overlap(this.player, this.shirt2, this.collectShirt, null, this);
+    this.physics.add.overlap(this.player, this.shirt3, this.collectShirt, null, this);
+
+     //Dont - Collectables (Shirt)
+     this.physics.add.overlap(this.player, this.blueS, this.collectXshirt, null, this);
+     this.physics.add.overlap(this.player, this.pinkS, this.collectXshirt, null, this);
+     this.physics.add.overlap(this.player, this.stripeS, this.collectXshirt, null, this);
+
+    //Collider
     this.wallLayer.setCollisionByExclusion(-1, true);
     this.physics.add.collider(this.player, this.wallLayer);
 
@@ -168,6 +211,10 @@ class level1_Living extends Phaser.Scene {
     this.physics.add.collider(this.player, this.furniture2Layer);
 
     this.player.body.setSize(this.player.width * 0.2, this.player.height * 0.5);
+
+  } // end of create //
+
+  update() {
 
     if (this.cursors.left.isDown) {
       this.player.setVelocityX(-160);
@@ -189,10 +236,42 @@ class level1_Living extends Phaser.Scene {
       console.log("Door1");
       this.level2_kitchen();
     }
+
+     // Check for the shirtCount
+     if (this.shirtCount > 2 ) {
+      console.log('Collected 3 shirt, jump to scene then level2_Kitchen');
+      this.scene.start("shirtScene");
+  }
+
+ // Check for the XshirtCount
+ if (this.XshirtCount > 0 ) {
+  console.log('Wrong shirt, Game Over');
+  this.scene.start("overScene");
+}
+
   } // end of update //
 
   level2_kitchen(player, tile) {
-    console.log("level2_Kitchen");
-    this.scene.start("level2_Kitchen");
+    console.log("shirtScene");
+    this.scene.start("shirtScene");
   }
+  
+// Collect Shirt
+  collectShirt(player, item) {
+    console.log("collectShirt");
+    this.shirtCount++
+    // this.cameras.main.shake(200);
+    item.disableBody(true, true); // remove shirt
+    return false;
+  }
+
+  // Collect Xshirt
+  collectXshirt(player, item) {
+    console.log("collectXshirt");
+    this.XshirtCount++
+    // this.cameras.main.shake(200);
+    item.disableBody(true, true); // remove Xshirt
+    return false;
+  }
+
 }

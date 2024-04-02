@@ -1,9 +1,10 @@
 
 class level2_Kitchen extends Phaser.Scene {
 
-    constructor ()
-    {
+    constructor (){
         super({key: 'level2_Kitchen' });
+        this.pantsCount = 0;
+        this.XpantsCount = 0;
     }
 
     preload () {
@@ -24,22 +25,45 @@ class level2_Kitchen extends Phaser.Scene {
       frameHeight: 62,
     });
 
+    this.load.spritesheet("blackP", "assets/blackP.png", {
+      frameWidth: 62,
+      frameHeight: 62,
+    });
+
+    this.load.spritesheet("blueP", "assets/blueP.png", {
+      frameWidth: 62,
+      frameHeight: 62,
+    });
+
+    //mp3
+    this.load.audio('gameSong', 'assets/gameSong.mp3');
+
 } // end of preload //
 
     create (){
-// console.log("animationScene")
 
-    // Call to update inventory
-    // this.time.addEvent({
-    //   delay: 500,
-    //   callback: updateInventory,
-    //   callbackScope: this,
-    //   loop: false,
-    // });
+      // this.timedEvent = this.time.addEvent({ delay: 10000, callback: this.delay10Seconds, callbackScope: this, loop: false });
+      
 
     this.anims.create({
       key: "pantsMove",
       frames: this.anims.generateFrameNumbers("pants", {start:0,end:1}),
+      frameRate: 6,
+      repeat: -1,
+
+    })
+    
+    this.anims.create({
+      key: "blackPMove",
+      frames: this.anims.generateFrameNumbers("blackP", {start:0,end:1}),
+      frameRate: 6,
+      repeat: -1,
+
+    })
+
+    this.anims.create({
+      key: "bluePMove",
+      frames: this.anims.generateFrameNumbers("blueP", {start:0,end:1}),
       frameRate: 6,
       repeat: -1,
 
@@ -105,9 +129,18 @@ let pants1 = map.findObject("Object Layer 2", (obj) => obj.name === "pants1");
 let pants2 = map.findObject("Object Layer 2", (obj) => obj.name === "pants2");
 let pants3 = map.findObject("Object Layer 2", (obj) => obj.name === "pants3");
 
-this.enemy1 = this.physics.add.sprite(pants1.x, pants1.y, "pants").play("pantsMove").setScale(0.7)
-this.enemy2 = this.physics.add.sprite(pants2.x, pants2.y, "pants").play("pantsMove").setScale(0.7)
-this.enemy3 = this.physics.add.sprite(pants3.x, pants3.y, "pants").play("pantsMove").setScale(0.7)
+this.pants1 = this.physics.add.sprite(pants1.x, pants1.y, "pants").play("pantsMove").setScale(0.7)
+this.pants2 = this.physics.add.sprite(pants2.x, pants2.y, "pants").play("pantsMove").setScale(0.7)
+this.pants3 = this.physics.add.sprite(pants3.x, pants3.y, "pants").play("pantsMove").setScale(0.7)
+
+// kelefe pants object
+let blackP1 = map.findObject("Object Layer 2", (obj) => obj.name === "blackP1");
+let blackP2 = map.findObject("Object Layer 2", (obj) => obj.name === "blackP2");
+let blueP = map.findObject("Object Layer 2", (obj) => obj.name === "blueP");
+
+this.blackP1 = this.physics.add.sprite(blackP1.x, blackP1.y, "pants").play("blackPMove").setScale(0.7)
+this.blackP2 = this.physics.add.sprite(blackP2.x, blackP2.y, "pants").play("blackPMove").setScale(0.7)
+this.blueP = this.physics.add.sprite(blueP.x, blueP.y, "pants").play("bluePMove").setScale(0.7)
 
 // this player sprite
   this.player = this.physics.add.sprite(start.x, start.y, "gen2");
@@ -150,12 +183,18 @@ this.enemy3 = this.physics.add.sprite(pants3.x, pants3.y, "pants").play("pantsMo
 // make the camera follow the player
 this.cameras.main.startFollow(this.player);
 
+//Collectables (Pants)
+this.physics.add.overlap(this.player, this.pants1, this.collectPants, null, this);
+this.physics.add.overlap(this.player, this.pants2, this.collectPants, null, this);
+this.physics.add.overlap(this.player, this.pants3, this.collectPants, null, this);
 
-} // end of create //
+//Dont - Collectables (Pants)
+this.physics.add.overlap(this.player, this.blackP1, this.collectXpants, null, this);
+this.physics.add.overlap(this.player, this.blackP2, this.collectXpants, null, this);
+this.physics.add.overlap(this.player, this.blueP, this.collectXpants, null, this);
 
-
-update() {
-  this.wallLayer.setCollisionByExclusion(-1, true);
+//Collider
+this.wallLayer.setCollisionByExclusion(-1, true);
   this.physics.add.collider(this.player, this.wallLayer);
 
   this.wallBoarderLayer.setCollisionByExclusion(-1, true);
@@ -168,6 +207,17 @@ update() {
   this.physics.add.collider(this.player, this.furniture2Layer);
 
   this.player.body.setSize(this.player.width * 0.2, this.player.height * 0.5)
+
+  // music
+this.time_Snd = this.sound.add('gameSong');
+this.time_Snd.play();
+window.count1 = this.time_Snd;
+// window.count1.loop = true;
+
+} // end of create //
+
+
+update() {
   
 if (this.cursors.left.isDown) {
   this.player.setVelocityX(-160);
@@ -193,10 +243,53 @@ if (
   console.log("Door2");
   this.level3_Bedroom();
 }
+
+// Check for the pantsCount
+if (this.pantsCount > 2 ) {
+  console.log('Collected 3 pants, jump to scene then level3_Bedroom');
+  this.scene.start("pantsScene");
+}
+
+// Check for the XpantsCount
+if (this.XpantsCount > 0 ) {
+  console.log('Wrong pants, Game Over');
+  this.scene.start("overScene");
+}
+
 } // end of update //
 
+// Game Timeout //
+// delay10Seconds(){
+    
+//   // this.timeSnd.play();
+//   console.log("after 10 secs");
+//   // if(collect 3pants, jump to level3)
+//   // else(start from level1)
+//   this.scene.start("level1");
+// } 
+
 level3_Bedroom(player, tile) {
-  console.log("level3_Bedroom");
-  this.scene.start("level3_Bedroom",);
+  console.log("pantsScene");
+  this.scene.start("pantsScene",);
 }
+
+// Collect Pants
+collectPants(player, item) {
+  console.log("collectPants");
+  this.pantsCount++
+  // this.cameras.main.shake(200);
+  item.disableBody(true, true); // remove pants
+  return false;
+}
+
+ // Collect Xpants
+ collectXpants(player, item) {
+  console.log("collectXpants");
+  this.XpantsCount++
+  // this.cameras.main.shake(200);
+  item.disableBody(true, true); // remove Xpants
+  return false;
+}
+
+
 }

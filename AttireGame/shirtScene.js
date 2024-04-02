@@ -1,40 +1,39 @@
-class instructions extends Phaser.Scene {
+class shirtScene extends Phaser.Scene {
     constructor() {
-        super({ key: 'instructions' });
+        super({ key: 'shirtScene' });
     }
 
     preload() {
-        this.load.image('instructions', 'assets/Instructions.png')
+        this.load.image('shirtScene', 'assets/shirtScene.png')
     
     }
     
     create () {
-        this.timedEvent = this.time.addEvent({ delay: 6000, callback: this.delay6Seconds, callbackScope: this, loop: false });
 
-        this.story = this.add.image(0, 0, 'instructions').setOrigin(0, 0).setScale(1);
+        this.timedEvent = this.time.addEvent({ delay: 5000, callback: this.delay5Seconds, callbackScope: this, loop: false });
+
+        this.story = this.add.image(0, 0, 'shirtScene').setOrigin(0, 0).setScale(1);
        
-        console.log("instructions");
+        console.log("shirtScene");
       //   let map = this.make.tilemap({ key: "world" });
     
-        // var spaceDown = this.input.keyboard.addKey('SPACE');
+        var spaceDown = this.input.keyboard.addKey('SPACE');
         
-        // spaceDown.on('down', function(){
-        // console.log("Spacebar pressed, go to game");
-        // this.scene.start("level1_Living");
-        // },this);
+        spaceDown.on('down', function(){
+        console.log("Spacebar pressed, go to Kitchen");
+        this.scene.start("level2_Kitchen");
+        },this);
     
     } // end of create //
 
-    // Game Timeout //
-delay6Seconds(){
+    delay5Seconds(){
     
-  // this.timeSnd.play();
-  console.log("after 6 secs");
-  // if(collect 3pants, jump to level3)
-  // else(start from level1)
-  this.scene.start("level1_Living");
-} 
-
+        // this.timeSnd.play();
+        console.log("after 5 secs");
+        // if(collect 3pants, jump to level3)
+        // else(start from level1)
+        this.scene.start("level2_Kitchen");
+      } 
     }
 
 //     {

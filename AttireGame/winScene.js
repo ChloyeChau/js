@@ -1,36 +1,37 @@
-class preloadScene extends Phaser.Scene {
+class winScene extends Phaser.Scene {
     constructor() {
-        super({ key: 'preloadScene' });
+        super({ key: 'winScene' });
     }
 
     preload() {
-        this.load.image('story1', 'assets/Storyline1.png')
+        this.load.image('winScene', 'assets/winningScene.png')
 
-    //mp3
-    this.load.audio('gameSong', 'assets/gameSong.mp3');
-    
+ //mp3
+    this.load.audio('winSong', 'assets/winSceneSong.mp3');
     }
     
     create () {
-        this.story = this.add.image(0, 0, 'story1').setOrigin(0, 0).setScale(1);
+        this.story = this.add.image(0, 0, 'winScene').setOrigin(0, 0).setScale(1);
        
-        console.log("story1");
+        console.log("winScene");
       //   let map = this.make.tilemap({ key: "world" });
 
       // music
-this.time_Snd = this.sound.add('gameSong');
+this.time_Snd = this.sound.add('winSong');
 this.time_Snd.play();
 window.count1 = this.time_Snd;
 // window.count1.loop = true;
+
+// this.timedEvent = this.time.addEvent({ delay: 10000, callback: this.delay10Seconds, callbackScope: this, loop: false });
     
         var spaceDown = this.input.keyboard.addKey('SPACE');
         
         spaceDown.on('down', function(){
-        console.log("Spacebar pressed, go to next storyLine");
-        this.scene.start("storyLine2");
+        console.log("Spacebar pressed, collect voucher");
+        this.scene.start("qrScene");
         },this);
-    
-    }
+
+    } // end of create //
     }
 
 //     {

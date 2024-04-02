@@ -1,39 +1,38 @@
-class instructions extends Phaser.Scene {
+class pantsScene extends Phaser.Scene {
     constructor() {
-        super({ key: 'instructions' });
+        super({ key: 'pantsScene' });
     }
 
     preload() {
-        this.load.image('instructions', 'assets/Instructions.png')
+        this.load.image('pantsScene', 'assets/pantsScene.png')
     
     }
     
     create () {
-        this.timedEvent = this.time.addEvent({ delay: 6000, callback: this.delay6Seconds, callbackScope: this, loop: false });
+        this.timedEvent = this.time.addEvent({ delay: 5000, callback: this.delay5Seconds, callbackScope: this, loop: false });
 
-        this.story = this.add.image(0, 0, 'instructions').setOrigin(0, 0).setScale(1);
+        this.story = this.add.image(0, 0, 'pantsScene').setOrigin(0, 0).setScale(1);
        
-        console.log("instructions");
+        console.log("pantsScene");
       //   let map = this.make.tilemap({ key: "world" });
     
-        // var spaceDown = this.input.keyboard.addKey('SPACE');
+        var spaceDown = this.input.keyboard.addKey('SPACE');
         
-        // spaceDown.on('down', function(){
-        // console.log("Spacebar pressed, go to game");
-        // this.scene.start("level1_Living");
-        // },this);
+        spaceDown.on('down', function(){
+        console.log("Spacebar pressed, go to Bedroom");
+        this.scene.start("level3_Bedroom");
+        },this);
     
-    } // end of create //
+    }// end of create //
 
-    // Game Timeout //
-delay6Seconds(){
+    delay5Seconds(){
     
-  // this.timeSnd.play();
-  console.log("after 6 secs");
-  // if(collect 3pants, jump to level3)
-  // else(start from level1)
-  this.scene.start("level1_Living");
-} 
+        // this.timeSnd.play();
+        console.log("after 5 secs");
+        // if(collect 3pants, jump to level3)
+        // else(start from level1)
+        this.scene.start("level3_Bedroom");
+      } 
 
     }
 
