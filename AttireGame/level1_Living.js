@@ -1,11 +1,14 @@
 class level1_Living extends Phaser.Scene {
   constructor() {
     super({ key: "level1_Living" });
-    this.shirtCount = 0;
-    this.XshirtCount = 0;
+
   }
 
   preload() {
+
+    this.shirtCount = 0;
+    this.XshirtCount = 0;
+
     //Step 1, load JSON
     this.load.tilemapTiledJSON("map1", "assets/LivingRoom.tmj");
 
@@ -42,6 +45,8 @@ class level1_Living extends Phaser.Scene {
   } // end of preload //
 
   create() {
+
+    console.log(this.shirtCount, this.XshirtCount)
 
     this.anims.create({
       key: "shirtMove",
@@ -243,12 +248,6 @@ class level1_Living extends Phaser.Scene {
       this.scene.start("shirtScene");
   }
 
- // Check for the XshirtCount
- if (this.XshirtCount > 0 ) {
-  console.log('Wrong shirt, Game Over');
-  this.scene.start("overScene");
-}
-
   } // end of update //
 
   level2_kitchen(player, tile) {
@@ -268,10 +267,9 @@ class level1_Living extends Phaser.Scene {
   // Collect Xshirt
   collectXshirt(player, item) {
     console.log("collectXshirt");
-    this.XshirtCount++
     // this.cameras.main.shake(200);
     item.disableBody(true, true); // remove Xshirt
-    return false;
+    this.scene.start("overScene");
   }
 
 }

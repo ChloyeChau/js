@@ -17,10 +17,8 @@ class winScene extends Phaser.Scene {
       //   let map = this.make.tilemap({ key: "world" });
 
       // music
-this.time_Snd = this.sound.add('winSong');
-this.time_Snd.play();
-window.count1 = this.time_Snd;
-// window.count1.loop = true;
+      this.music = this.sound.add("winSong",{loop: true}).setVolume(0.2);
+      this.music.play();
 
 // this.timedEvent = this.time.addEvent({ delay: 10000, callback: this.delay10Seconds, callbackScope: this, loop: false });
     

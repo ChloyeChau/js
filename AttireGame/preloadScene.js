@@ -5,10 +5,6 @@ class preloadScene extends Phaser.Scene {
 
     preload() {
         this.load.image('story1', 'assets/Storyline1.png')
-
-    //mp3
-    this.load.audio('gameSong', 'assets/gameSong.mp3');
-    
     }
     
     create () {
@@ -16,12 +12,6 @@ class preloadScene extends Phaser.Scene {
        
         console.log("story1");
       //   let map = this.make.tilemap({ key: "world" });
-
-      // music
-this.time_Snd = this.sound.add('gameSong');
-this.time_Snd.play();
-window.count1 = this.time_Snd;
-// window.count1.loop = true;
     
         var spaceDown = this.input.keyboard.addKey('SPACE');
         

@@ -3,11 +3,13 @@ class level3_Bedroom extends Phaser.Scene {
 
     constructor (){
         super({key: 'level3_Bedroom' });
-        this.shoesCount = 0;
-        this.XshoesCount = 0;
     }
 
     preload () {
+
+      this.shoesCount = 0;
+      this.XshoesCount = 0;
+
 //Step 1, load JSON
     this.load.tilemapTiledJSON("map3","assets/Bedroom.tmj");
 
@@ -36,9 +38,6 @@ class level3_Bedroom extends Phaser.Scene {
       frameWidth: 62,
       frameHeight: 62,
     });
-
-     //mp3
-     this.load.audio('gameSong', 'assets/gameSong.mp3');
 
 } // end of preload //
 
@@ -219,12 +218,6 @@ this.physics.add.collider(this.player, this.furniture2Layer);
 
 this.player.body.setSize(this.player.width * 0.2, this.player.height * 0.5)
 
-// music
-this.time_Snd = this.sound.add('gameSong');
-this.time_Snd.play();
-window.count1 = this.time_Snd;
-// window.count1.loop = true;
-
 } // end of create //
 
 update() {
@@ -251,12 +244,6 @@ if (this.shoesCount > 2 ) {
   console.log('Collected 3 shoes, jump to winScene');
   this.scene.start("winScene");
 }
-
-// Check for the XpantsCount
-if (this.XshoesCount > 0 ) {
-  console.log('Wrong shoes, Game Over');
-  this.scene.start("overScene");
-}
 } // end of update //
 
 // Collect Shoes
@@ -271,10 +258,9 @@ collectShoes(player, item) {
  // Collect Xshoes
  collectXshoes(player, item) {
   console.log("collectXshoes");
-  this.XshoesCount++
   // this.cameras.main.shake(200);
   item.disableBody(true, true); // remove Xshoes
-  return false;
+  this.scene.start("overScene");
 }
 
 

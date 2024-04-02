@@ -3,11 +3,13 @@ class level2_Kitchen extends Phaser.Scene {
 
     constructor (){
         super({key: 'level2_Kitchen' });
-        this.pantsCount = 0;
-        this.XpantsCount = 0;
     }
 
     preload () {
+
+      this.pantsCount = 0;
+      this.XpantsCount = 0;
+
 //Step 1, load JSON
     this.load.tilemapTiledJSON("map2","assets/Kitchen.tmj");
 
@@ -34,9 +36,6 @@ class level2_Kitchen extends Phaser.Scene {
       frameWidth: 62,
       frameHeight: 62,
     });
-
-    //mp3
-    this.load.audio('gameSong', 'assets/gameSong.mp3');
 
 } // end of preload //
 
@@ -208,12 +207,6 @@ this.wallLayer.setCollisionByExclusion(-1, true);
 
   this.player.body.setSize(this.player.width * 0.2, this.player.height * 0.5)
 
-  // music
-this.time_Snd = this.sound.add('gameSong');
-this.time_Snd.play();
-window.count1 = this.time_Snd;
-// window.count1.loop = true;
-
 } // end of create //
 
 
@@ -250,12 +243,6 @@ if (this.pantsCount > 2 ) {
   this.scene.start("pantsScene");
 }
 
-// Check for the XpantsCount
-if (this.XpantsCount > 0 ) {
-  console.log('Wrong pants, Game Over');
-  this.scene.start("overScene");
-}
-
 } // end of update //
 
 // Game Timeout //
@@ -285,10 +272,9 @@ collectPants(player, item) {
  // Collect Xpants
  collectXpants(player, item) {
   console.log("collectXpants");
-  this.XpantsCount++
   // this.cameras.main.shake(200);
   item.disableBody(true, true); // remove Xpants
-  return false;
+  this.scene.start("overScene");
 }
 
 

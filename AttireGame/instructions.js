@@ -6,6 +6,8 @@ class instructions extends Phaser.Scene {
     preload() {
         this.load.image('instructions', 'assets/Instructions.png')
     
+    //mp3
+    this.load.audio('gameSong', 'assets/gameSong.mp3');
     }
     
     create () {
@@ -14,6 +16,11 @@ class instructions extends Phaser.Scene {
         this.story = this.add.image(0, 0, 'instructions').setOrigin(0, 0).setScale(1);
        
         console.log("instructions");
+
+    // music
+      window.music = this.sound.add("gameSong",{loop: true}).setVolume(0.2);
+      window.music.play();
+
       //   let map = this.make.tilemap({ key: "world" });
     
         // var spaceDown = this.input.keyboard.addKey('SPACE');

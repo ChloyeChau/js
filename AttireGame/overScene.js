@@ -12,21 +12,21 @@ class overScene extends Phaser.Scene {
     }
     
     create () {
-        this.story = this.add.image(0, 0, 'overScene').setOrigin(0, 0).setScale(1);
+        this.overScene = this.add.image(0, 0, 'overScene').setOrigin(0, 0).setScale(1);
        
         console.log("overScene");
       //   let map = this.make.tilemap({ key: "world" });
 
     // music
-this.time_Snd = this.sound.add('overSong');
-this.time_Snd.play();
-window.count1 = this.time_Snd;
-// window.count1.loop = true;
+    window.music.stop()
+    this.music = this.sound.add("overSong",{loop: true}).setVolume(0.2);
+    this.music.play();
     
         var spaceDown = this.input.keyboard.addKey('SPACE');
         
         spaceDown.on('down', function(){
         console.log("Spacebar pressed, go to instructions");
+        this.scene.stop("overScene");
         this.scene.start("instructions");
         },this);
     
