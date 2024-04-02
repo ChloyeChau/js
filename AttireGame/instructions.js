@@ -15,7 +15,7 @@ class instructions extends Phaser.Scene {
 
         this.story = this.add.image(0, 0, 'instructions').setOrigin(0, 0).setScale(1);
        
-        console.log("instructions");
+        console.log("instructions, wait for 6 seconds");
 
     // music
       window.music = this.sound.add("gameSong",{loop: true}).setVolume(0.2);

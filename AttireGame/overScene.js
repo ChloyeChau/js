@@ -19,7 +19,7 @@ class overScene extends Phaser.Scene {
 
     // music
     window.music.stop()
-    this.music = this.sound.add("overSong",{loop: true}).setVolume(0.2);
+    this.music = this.sound.add("overSong",{loop: false}).setVolume(0.2);
     this.music.play();
     
         var spaceDown = this.input.keyboard.addKey('SPACE');
