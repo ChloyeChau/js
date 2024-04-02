@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="26" height="26" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="6">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="26" height="26" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="10">
  <editorsettings>
   <export target="Bedroom.tmj" format="json"/>
  </editorsettings>
@@ -200,6 +200,15 @@
    <point/>
   </object>
   <object id="5" name="shoes3" x="753.467" y="727.769">
+   <point/>
+  </object>
+  <object id="6" name="Sblue" x="245.673" y="286.79">
+   <point/>
+  </object>
+  <object id="7" name="Sgrey1" x="431.727" y="424.532">
+   <point/>
+  </object>
+  <object id="8" name="Sgrey2" x="443.034" y="609.558">
    <point/>
   </object>
  </objectgroup>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="26" height="26" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="8">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="26" height="26" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="12">
  <editorsettings>
   <export target="LivingRoom.tmj" format="json"/>
  </editorsettings>
@@ -173,6 +173,15 @@
    <point/>
   </object>
   <object id="7" name="shirt3" x="715" y="203">
+   <point/>
+  </object>
+  <object id="8" name="stripeS" x="158.3" y="541.715">
+   <point/>
+  </object>
+  <object id="10" name="pinkS" x="691.791" y="668.149">
+   <point/>
+  </object>
+  <object id="11" name="blueS" x="150.077" y="170.635">
    <point/>
   </object>
  </objectgroup>

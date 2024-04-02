@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="26" height="26" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="6">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="26" height="26" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="9">
  <editorsettings>
   <export target="Kitchen.tmj" format="json"/>
  </editorsettings>
@@ -196,13 +196,22 @@
   <object id="2" name="Next" x="801" y="439">
    <point/>
   </object>
-  <object id="3" name="pants1" x="335.103" y="295.014">
+  <object id="3" name="pants1" x="247.73" y="271.372">
    <point/>
   </object>
   <object id="4" name="pants2" x="679.456" y="743.188">
    <point/>
   </object>
   <object id="5" name="pants3" x="161.384" y="740.104">
+   <point/>
+  </object>
+  <object id="6" name="blackP1" x="504.71" y="594.139">
+   <point/>
+  </object>
+  <object id="7" name="blackP2" x="651.702" y="276.511">
+   <point/>
+  </object>
+  <object id="8" name="blueP" x="365.94" y="403.973">
    <point/>
   </object>
  </objectgroup>
